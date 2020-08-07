@@ -1,4 +1,4 @@
-## Colored_console
+## Colarizador de Texto de Console
 
 ---------------------
 
