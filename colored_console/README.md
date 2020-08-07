@@ -30,6 +30,18 @@ Essa função foi criada para criar uma mensagem informação algum resultado. E
 
 --------------------
 
+**info\_fail** ( _text\_current, text\_succes="FALHOU", symbol="✕"_ )
+
+Essa função foi criada para criar uma mensagem informação algum resultado. Está pré definida como padrão de mensagem de erro ou falhou, mas não é exclusiva a isso.
+
+ *   _text\_current:_**string**_ -> Nesse parâmetro em que é colocado o texto ou a messagem
+
+ *   (Opcional) _text\_succes:_**string**_ ->  Nesse parâmetro em que é colocado a mensagem de sucesso ou mensagem no final do texto.
+
+ *   (Opcional) _symbol:_**string**_ ->  Nesse parâmetro em que é colocado o simbolo dessa mensagem.
+
+--------------------
+
 **print\_red** ( _text, return=true_)
 
 Essa função foi criada para criar textos de console na cor *vermelha*. Função herdada de *printc*

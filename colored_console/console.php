@@ -46,4 +46,15 @@
         return $all_text;
     }
 
+
+    function info_fail($text_current,$text_succes="FALHOU",$symbol="✕")
+    {
+        $all_text = print_red("\n$symbol") . 
+        print_white($text_current) .
+        print_red($text_succes . "!\n");
+
+        echo $all_text;
+        return $all_text;
+    }
+
 ?>
