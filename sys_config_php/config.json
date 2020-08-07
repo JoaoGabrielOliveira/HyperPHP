@@ -1,0 +1,9 @@
+{
+    "project-name":"KauAPI",
+    "version":"1.0.0",
+    "create_at":"1",
+    "env":["dev","test","prod"],
+    "db":{
+        "db-host":"localhost:0000"
+    }
+ }

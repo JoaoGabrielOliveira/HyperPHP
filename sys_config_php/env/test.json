@@ -1,0 +1,6 @@
+{
+    "name":"test",
+    "db":{
+        "db-name":"kaudb-development"
+    }
+}
