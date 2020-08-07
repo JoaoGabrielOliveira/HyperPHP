@@ -13,25 +13,7 @@
             $Configuração = new Config();
 
             $Configuração->CarregandoConfiguracoes();
-
-            $opção = readline("Escreva qual ambiente você quer configurar: ");
-
-            switch($opção)
-            {
-                case "dev":
-                    $EnvConfig = self::loadConfigFrom(__DIR__ . '/env', 'dev.json');
-                break;
-
-                case "test":
-                    $EnvConfig = self::loadConfigFrom(__DIR__ . '/env', 'test.json');
-                break;
-
-                case "prod":
-                    $EnvConfig = self::loadConfigFrom(__DIR__ . '/env', 'prod.json');
-                break;
-            }
-
-            print_r($EnvConfig);
+            $EnvConfig = $Configuração->loadEnvConfig();
 
             echo "\n";
         }
@@ -83,7 +65,31 @@
                 echo "\nAlgum erro acorreu no processo da nova configuração";
                 echo "\nErro: $e";
             }
+
+            $this->CarregandoConfiguracoes();
             
+        }
+
+        private function loadEnvConfig()
+        {
+            $opção = readline("Escreva qual ambiente você quer configurar: ");
+
+            switch($opção)
+            {
+                case "dev":
+                    $EnvConfig = self::loadConfigFrom(__DIR__ . '/env', 'dev.json');
+                break;
+
+                case "test":
+                    $EnvConfig = self::loadConfigFrom(__DIR__ . '/env', 'test.json');
+                break;
+
+                case "prod":
+                    $EnvConfig = self::loadConfigFrom(__DIR__ . '/env', 'prod.json');
+                break;
+            }
+
+            return $EnvConfig;
         }
     }
 ?>
