@@ -36,4 +36,14 @@
         return printc($text, "\e[97m", $rr);
     }
 
+    function info_success($text_current,$text_succes="SUCESSO",$symbol="✔")
+    {
+        $all_text = print_green("\n$symbol") . 
+        print_white($text_current) .
+        print_green($text_succes . "!\n");
+
+        echo $all_text;
+        return $all_text;
+    }
+
 ?>
