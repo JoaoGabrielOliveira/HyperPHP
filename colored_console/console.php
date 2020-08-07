@@ -1,7 +1,7 @@
 <?php
     function printc($text, $color):void
     {
-        echo $color . "$text" . "\e[39m";
+        echo $color . "$text" . "\e[39m ";
     }
 
     function print_red($text)
@@ -12,6 +12,11 @@
     function print_green($text)
     {
         printc($text, "\e[92m");
+    }
+
+    function print_blue($text)
+    {
+        printc($text, "\e[34m");
     }
 
     function print_yellow($text)
