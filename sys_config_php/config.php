@@ -1,4 +1,6 @@
 <?php
+    include_once __DIR__ . '/../colored_console/console.php';
+
     class Config
     {
         private $Configs;
@@ -8,18 +10,18 @@
 
         public static function Main()
         {
-            echo "\n";
-
             $Configuração = new Config();
 
-            $Configuração->CarregandoConfiguracoes();
+            echo "\n";
+
+            $Configuração->loadConfig();
             $EnvConfig = $Configuração->loadEnvConfig();
 
             echo "\n";
         }
 
         //Private
-        private function CarregandoConfiguracoes()
+        private function loadConfig()
         {
             $path =  __DIR__ . '/';
             $file = 'config.json';
@@ -30,6 +32,8 @@
             $content_file = file_get_contents($this->path_file);
             $config = json_decode($content_file, true);
 
+            info_success('Configurações foram carregadas com');
+            echo "\n";
             $this->Configs = $config;
         }
 
@@ -39,10 +43,12 @@
             $content_file = file_get_contents($path_file);
             $config = json_decode($content_file, true);
 
+            info_success('Configurações foram carregadas com');
+
             return $config;
         }
 
-        private function CarregarInformações()
+        private function ShowInfo()
         {
             echo "Nome do Projeto: " . $this->Configs['project-name'] . "\n";
             echo "Versão: " . $this->Configs['version'] . "\n";
@@ -55,14 +61,15 @@
             try
             {
                 file_put_contents($this->path_file, json_encode($new_config));
-                echo "Adicionado a configuração: \n";
-                echo '"' . $key . '":';
-                echo '"' . $new_config[$key] . '"';
+
+                info_success("Adicionado a configuração:");                
+                    echo '"' . $key . '":';
+                    echo '"' . $new_config[$key] . '"';
             }
 
             catch(Exception $e)
             {
-                echo "\nAlgum erro acorreu no processo da nova configuração";
+                echo "\n  \e[91m✕  \e[97mAlgum erro acorreu no processo da nova configuração";
                 echo "\nErro: $e";
             }
 
@@ -88,6 +95,8 @@
                     $EnvConfig = self::loadConfigFrom(__DIR__ . '/env', 'prod.json');
                 break;
             }
+
+            info_success("Ambiente de ". print_blue($EnvConfig['name']) ."carregado com");
 
             return $EnvConfig;
         }
