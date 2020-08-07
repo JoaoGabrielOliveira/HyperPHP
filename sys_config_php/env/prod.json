@@ -1,5 +1,5 @@
 {
-    "name":"prod",
+    "name":"production",
     "db":{
         "db-name":"kaudb-development"
     }
