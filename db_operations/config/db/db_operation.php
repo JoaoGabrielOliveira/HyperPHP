@@ -3,12 +3,7 @@
 
     public class DbOperation
     {
-        private static $connection = DbConnection::connect();;
-
-        function __construct()
-        {
-            $this->connection = DbConnection::connect();
-        }
+        private static $connection = DbConnection::connect();
 
         public static function query($SQL, $OPTIONS = '')
         {

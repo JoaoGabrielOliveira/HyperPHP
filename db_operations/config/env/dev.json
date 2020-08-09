@@ -1,9 +1,7 @@
 {
     "env-name":"development",
     "db":{
-        "cript":true,
-        "db-name":"kaudb-development",
-        "db-user":"obasdugaugbdwiabsd",
-        "db-pass":"449684646749461s56a498ds49"
-    }
+        "cript":false,
+        "db-driver":"sqlite",
+        "db-file":"/../db/database.db"
 }
