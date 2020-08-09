@@ -1,0 +1,9 @@
+{
+    "env-name":"test",
+    "db":{
+        "cript":true,
+        "db-name":"kaudb-test",
+        "db-user":"obasdugaugbdwiabsd",
+        "db-pass":"449684646749461s56a498ds49"
+    }
+}
