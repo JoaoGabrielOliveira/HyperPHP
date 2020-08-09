@@ -6,18 +6,22 @@
         private $Configs;
 
         private $default_path;
-        private $path_file;
+
+        private $file;
+
+        public function __construct($path)
+        {
+            $this->path_file = $path;
+            $file_path = explode("/",$path);
+
+            $this->file = end($file_path);
+            $this->default_path =  $path;
+        }
 
         //Private
         private function load_config()
         {
-            $path =  __DIR__ . '/';
-            $file = 'config.json';
-
-            $this->default_path =  $path;
-            $this->path_file = $path . '/' . $file;
-
-            $content_file = file_get_contents($this->path_file);
+            $content_file = file_get_contents($this->default_path);
             $config = json_decode($content_file, true);
 
             info_success('Configurações foram carregadas com');
@@ -25,9 +29,9 @@
             $this->Configs = $config;
         }
 
-        private function save_config($path = __DIR__.'/',$file='config.json')
+        private function save_config()
         {
-            $path_file = $path . '/' . $file;
+            $path_file = $this->default_path;
             $new_config = $this->Configs;
             try
             {
@@ -42,7 +46,7 @@
             }
         }
 
-        private static function load_config_from($path = __DIR__.'/',$file='config.json')
+        private static function load_config_from($path,$file)
         {
             $path_file = $path . '/' . $file;
             $content_file = file_get_contents($path_file);
