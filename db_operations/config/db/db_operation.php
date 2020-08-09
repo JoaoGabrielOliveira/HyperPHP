@@ -9,5 +9,22 @@
         {
             $this->connection = DbConnection::connect();
         }
+
+        public static function query($SQL, $OPTIONS = '')
+        {
+            try
+            {
+                $connection = self::$connection;
+                $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $statement = $connection->prepare($SQL);
+                $statement->execute();
+                return $statement->fetch_all();
+            }
+
+            catch(PDOException $e)
+            {
+                return "Error: " . $e->getMessage();
+            }
+        }
     }
 ?>
