@@ -1,6 +1,9 @@
 {
-    "name":"development",
+    "env-name":"development",
     "db":{
-        "db-name":"kaudb-development"
+        "cript":true,
+        "db-name":"kaudb-development",
+        "db-user":"obasdugaugbdwiabsd",
+        "db-pass":"449684646749461s56a498ds49"
     }
 }

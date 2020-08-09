@@ -8,20 +8,8 @@
         private $default_path;
         private $path_file;
 
-        public static function Main()
-        {
-            $Configuração = new Config();
-
-            echo "\n";
-
-            $Configuração->loadConfig();
-            $EnvConfig = $Configuração->loadEnvConfig();
-
-            echo "\n";
-        }
-
         //Private
-        private function loadConfig()
+        private function load_config()
         {
             $path =  __DIR__ . '/';
             $file = 'config.json';
@@ -37,7 +25,24 @@
             $this->Configs = $config;
         }
 
-        private static function loadConfigFrom($path = __DIR__.'/',$file='config.json')
+        private function save_config($path = __DIR__.'/',$file='config.json')
+        {
+            $path_file = $path . '/' . $file;
+            $new_config = $this->Configs;
+            try
+            {
+                file_put_contents($this->path_file, json_encode($new_config));
+                info_success("Configurações salvas com");
+            }
+
+            catch(Exception $e)
+            {
+                info_fail("Algum erro acorreu no processo da nova configuração");
+                print_red("\nErro:" . $e->getMessage());
+            }
+        }
+
+        private static function load_config_from($path = __DIR__.'/',$file='config.json')
         {
             $path_file = $path . '/' . $file;
             $content_file = file_get_contents($path_file);
@@ -48,12 +53,13 @@
             return $config;
         }
 
-        private function ShowInfo()
+        private function show_info()
         {
             echo "Nome do Projeto: " . $this->Configs['project-name'] . "\n";
             echo "Versão: " . $this->Configs['version'] . "\n";
         }
 
+        /*
         private function AdicionarConfiguração($key, $value)
         {
             $new_config = $this->Configs;
@@ -69,12 +75,26 @@
 
             catch(Exception $e)
             {
-                echo "\n  \e[91m✕  \e[97mAlgum erro acorreu no processo da nova configuração";
+                echo "\n  \e[91m  \e[97mAlgum erro acorreu no processo da nova configuração";
                 echo "\nErro: $e";
             }
 
             $this->CarregandoConfiguracoes();
             
+        }
+        */
+
+        private function add_config_by_env($key, $EnvConfig)
+        {
+            if($EnvConfig == null)
+            {
+                info_fail("A configuração escolhida é", "NULA");
+                return;
+            }
+
+            $this->Configs[$key] = $EnvConfig[$key];
+
+            info_success("Chave: " . print_yellow($key), "CARREGADA", "➟");
         }
 
         private function loadEnvConfig()
@@ -84,19 +104,26 @@
             switch($opção)
             {
                 case "dev":
-                    $EnvConfig = self::loadConfigFrom(__DIR__ . '/env', 'dev.json');
+                    $EnvConfig = self::load_config_from(__DIR__ . '/env', 'dev.json');
                 break;
 
                 case "test":
-                    $EnvConfig = self::loadConfigFrom(__DIR__ . '/env', 'test.json');
+                    $EnvConfig = self::load_config_from(__DIR__ . '/env', 'test.json');
                 break;
 
                 case "prod":
-                    $EnvConfig = self::loadConfigFrom(__DIR__ . '/env', 'prod.json');
+                    $EnvConfig = self::load_config_from(__DIR__ . '/env', 'prod.json');
+                break;
+
+                default:
+
+                info_fail("O ambiente digirado não existe! ");
+                return null;
                 break;
             }
 
-            info_success("Ambiente de ". print_blue($EnvConfig['name']) ."carregado com");
+
+            info_success("Ambiente de ". print_blue($EnvConfig['env-name']) ."carregado com");
 
             return $EnvConfig;
         }

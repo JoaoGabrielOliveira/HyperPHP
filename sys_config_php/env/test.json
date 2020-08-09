@@ -1,5 +1,5 @@
 {
-    "name":"test",
+    "env-name":"test",
     "db":{
         "db-name":"kaudb-development"
     }
