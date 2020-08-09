@@ -3,7 +3,7 @@
 
     class Config
     {
-        private $Configs;
+        public $Configs;
 
         private $default_path;
 
