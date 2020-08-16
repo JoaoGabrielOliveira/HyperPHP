@@ -1,6 +1,7 @@
 <?php
     require_once __DIR__ . '/../sys_config_php/config.php';
     require_once __DIR__ . '/config/db/db_connection.php';
+    require_once __DIR__ . '/config/db/db_operation.php';
 
     define('ROOTPATH', __DIR__);
 
@@ -12,5 +13,5 @@
     $configs->save_config();
 
     $conn = DbConnection::connect($configs->Configs);
-
-
+    $result = DbOperation::query($conn,"SELECT * FROM tb_cliente");
+    print_r($result);
