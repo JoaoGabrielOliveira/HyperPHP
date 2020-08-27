@@ -1,0 +1,2 @@
+INSERT INTO tb_cliente (nome, endereco_id, criado_em, atualizado_em) VALUES ('Cleber', 101, datetime('now'), datetime('now'));
+INSERT INTO tb_cliente (nome, endereco_id, criado_em, atualizado_em) VALUES ('Dario', 102, datetime('now'), datetime('now'));
