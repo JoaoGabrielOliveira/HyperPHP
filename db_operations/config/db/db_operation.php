@@ -3,20 +3,18 @@
 
     class DbOperation
     {
-        public static function query($connection,$SQL, $OPTIONS='')
+        public static function query(PDO $connection,$SQL, $OPTIONS='')
         {
             try
             {
                 $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
-                $statement = $connection->prepare('SELECT * FROM tb_cliente');
+                $statement = $connection->prepare($SQL);
                 $statement->execute();
 
                 $result = $statement->fetchAll();
 
                 $connection = null;
-
-                return $result;
             }
 
             catch(PDOException $e)
@@ -26,7 +24,7 @@
             }
         }
 
-        public static function select($connection,$SQL, $OPTIONS='')
+        public static function select(PDO $connection,$SQL, $OPTIONS='')
         {
             try
             {
@@ -82,45 +80,31 @@
                 $collumns_name = implode(',',array_keys($values[0]));
 
                 $processed_data = self::data_validate($values);
-
-                //print_r($processed_data);
-
-                print_r( self::convert_values_to_sql($processed_data) );
                 
                 $SQL_string = self::convert_data_to_sql($collumns_name,$processed_data);
                 
-                //$statement = $connection->prepare($SQL_string);
+                $marged_data = self::merge_data($processed_data);
                 
+                $statement = $connection->prepare($SQL_string);
 
-                foreach($processed_data as $data)
+                foreach($marged_data as $key=>$value)
                 {
-                    foreach($data as $key => $value)
-                    {
-                        //\$statement->bindValue($key, $value);
-                        //print($key . " -> " . $value . " || ");
-                    }
+                    $statement->bindValue($key,$value);
                 }
 
-                //$statement->execute();
+                $statement->execute();
+
+                $connection = null;
 
                 return $insert_results;
             }
-
-            
-
             catch(PDOException $e)
             {
                 return "Error: " . $e->getMessage();
             }
         }
 
-        private static function convert_data_to_sql($collumns,$rows)
-        {
-            $sql_values = self::convert_values_to_sql($rows);
-
-            return "INSERT INTO tb_cliente ($collumns) VALUES " . implode(',',$sql_values);
-        }
-
+        /* HELPERS */
         private static function data_validate(array $data)
         {
             $processed_data = [];
@@ -130,7 +114,7 @@
                 $insert_data = [];
                 foreach($row as $r=>$d)
                 {
-                    $index_value = ':' . $index .'-'. $r;
+                    $index_value = ':' . $r . $index;
                     $insert_data[$index_value] = $d;    
                 }
 
@@ -139,6 +123,14 @@
 
             return $processed_data;
         }
+
+        private static function convert_data_to_sql($collumns,$rows)
+        {
+            $sql_values = self::convert_values_to_sql($rows);
+
+            return "INSERT INTO tb_cliente ($collumns) VALUES " . implode(',',$sql_values);
+        }
+
 
         private static function convert_values_to_sql(array $data)
         {
@@ -157,6 +149,18 @@
             }
 
             return $result;
+        }
+
+        private static function merge_data(array $data)
+        {
+            $marged_data = [];
+
+            foreach($data as $one_data)
+            {
+                $marged_data = array_merge($marged_data, $one_data);
+            }
+
+            return $marged_data;
         }
     }
 ?>

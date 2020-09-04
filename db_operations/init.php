@@ -13,5 +13,13 @@
     $configs->save_config();
 
     $conn = DbConnection::connect($configs->Configs);
-    $result = DbOperation::query($conn,"SELECT * FROM tb_cliente");
+
+    $i = DbOperation::insert($conn);
+
+    /*DbOperation::query($conn,"
+    INSERT INTO tb_cliente (nome, endereco_id, criado_em, atualizado_em) VALUES ('Cleber', 101, datetime('now'), datetime('now'));
+    ");
+    */
+    $result = DbOperation::select($conn,"tb_cliente");
+    
     print_r($result);
