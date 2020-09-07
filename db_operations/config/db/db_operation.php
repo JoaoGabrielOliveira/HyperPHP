@@ -49,50 +49,42 @@
 
         public static function insert(PDO $connection,array $values = [])
         {
+            $insert_results = 0;
 
-            $values = array(
-                array(
-                    'nome' => 'Antonio',
-                    'endereco_id' => 100,
-                    'criado_em' => "datetime('now')",
-                    'atualizado_em' => "datetime('now')"
-                ),
-                array(
-                    'nome' => 'Fernandinho',
-                    'endereco_id' => 99,
-                    'criado_em' => "datetime('now')",
-                    'atualizado_em' => "datetime('now')"
-                ),
-                array(
-                    'nome' => 'Rodriguinho',
-                    'endereco_id' => 97,
-                    'criado_em' => "datetime('now')",
-                    'atualizado_em' => "datetime('now')"
-                )
-            );
-
+            $collumns_name;
+            $processed_data;
+            $marged_data;
             try
             {
                 $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                $insert_results = 0;
+                if (self::is_mutiple_values($values))
+                {
+                    $collumns_name = implode(',',array_keys($values[0]));
+                    $processed_data = self::processing_data($values);
+                    $marged_data = self::merge_data($processed_data);
+                }
 
-                $collumns_name = implode(',',array_keys($values[0]));
+                else
+                {
+                    $collumns_name = implode(',',array_keys($values));
+                    $processed_data = self::processing_multiple_data($values);
+                    //The syntax to insert a single data it's already and does not need be marged.
+                    $marged_data = $processed_data;
+                }
 
-                $processed_data = self::data_validate($values);
-                
-                $SQL_string = self::convert_data_to_sql($collumns_name,$processed_data);
-                
-                $marged_data = self::merge_data($processed_data);
-                
+                $SQL_string = self::convert_data_to_sql('tb_cliente',$collumns_name,$processed_data);
+
                 $statement = $connection->prepare($SQL_string);
 
+                /*
                 foreach($marged_data as $key=>$value)
                 {
                     $statement->bindValue($key,$value);
                 }
+                */
 
-                $statement->execute();
+                //$statement->execute();
 
                 $connection = null;
 
@@ -105,30 +97,50 @@
         }
 
         /* HELPERS */
-        private static function data_validate(array $data)
+        private static function processing_data(array $data)
         {
             $processed_data = [];
 
             foreach($data as $index => $row)
             {
-                $insert_data = [];
-                foreach($row as $r=>$d)
+                $insert_data = [];                    
+                foreach($row as $key=>$value)
                 {
-                    $index_value = ':' . $r . $index;
-                    $insert_data[$index_value] = $d;    
+                    $index_value = ':' . $index . $key;
+                    $insert_data[$index_value] = $value;
                 }
 
                 array_push($processed_data,$insert_data);
+            }
+            return $processed_data;
+        }
+
+        private static function processing_multiple_data(array $data)
+        {
+            $processed_data = [];
+
+            foreach($data as $index => $value)
+            {
+                $index_value = ':' . $index;
+                $processed_data[$index_value] = $value;
             }
 
             return $processed_data;
         }
 
-        private static function convert_data_to_sql($collumns,$rows)
+        private static function is_mutiple_values(array $data)
+        {
+            $keys = array_keys($data);
+            $is_int = is_int($keys[0]);
+
+            return $is_int;
+        }
+
+        private static function convert_data_to_sql($table_name, $collumns,$rows)
         {
             $sql_values = self::convert_values_to_sql($rows);
 
-            return "INSERT INTO tb_cliente ($collumns) VALUES " . implode(',',$sql_values);
+            return "INSERT INTO $table_name ($collumns) VALUES " . implode(',',$sql_values);
         }
 
 
@@ -138,14 +150,16 @@
 
             foreach($data as $key)
             {
-                
-                $keys = array_keys($key);
+                $is_array = is_array($key);
+                $keys = ($is_array) ? array_keys($key) : array_keys($data);
 
                 $string_keys = implode("," , $keys);
 
                 $string_keys = "(" . $string_keys .")";
 
                 array_push($result,$string_keys);
+
+                if (!$is_array) break;
             }
 
             return $result;
