@@ -3,8 +3,11 @@
     "db":{
         "cript":false,
         "db-driver":"pgsql",
+        "host":"localhost",
+        "port":"1234",
         "user":"postgres",
         "dbname":"exemplo",
-        "password":"postgres"
-    }
+        "password":"1234"
+}
+
 }

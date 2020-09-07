@@ -3,5 +3,7 @@
     "db":{
         "cript":false,
         "db-driver":"sqlite",
-        "db-file":"/../db/database.db"
+        "db-name":"/db/database.db"
+}
+
 }

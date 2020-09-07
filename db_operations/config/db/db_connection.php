@@ -9,7 +9,7 @@ class DbConnection
         if($db['db-driver'] == 'sqlite')
         {
             $database_server = $db['db-driver']
-            .':' . ROOTPATH . '/' . $db['db-file'];
+            .':' . ROOTPATH . '/' . $db['db-name'];
 
             try 
             {
@@ -26,7 +26,7 @@ class DbConnection
             $database_server = $db['db-driver']
             .':dbname=' . $db['db-name']
             .';host=' . $db['db-host']
-            .';port=3306;charset=utf8';
+            .';port=' . $db['port'] . ';charset=utf8';
 
             try 
             {

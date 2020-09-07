@@ -1,1 +1,1 @@
-{"project-name":"KauAPI","version":"1.0.0","create_at":"1","env":["dev","test","prod"],"env-name":"","db":{"cript":false,"db-driver":"sqlite","db-file":"db\/database.db"}}
+{"project-name":"KauAPI","version":"1.0.0","create_at":"1","env":["dev","test","prod"],"env-name":"","db":{"cript":false,"db-driver":"sqlite","db-name":"\/db\/database.db"}}
