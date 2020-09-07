@@ -1,5 +1,6 @@
 <?php
     require_once dirname(__FILE__) . '/db_connection.php';
+    require_once dirname(__DIR__) . '/../../colored_console/console.php';
 
     class DbOperation
     {
@@ -77,22 +78,25 @@
 
                 $statement = $connection->prepare($SQL_string);
 
-                /*
+                
                 foreach($marged_data as $key=>$value)
                 {
                     $statement->bindValue($key,$value);
                 }
-                */
 
-                //$statement->execute();
+                $statement->execute();
 
+                info_success("Dados insetidos com", " SUCESSO!","⇉");
+                print_blue($SQL_string, false);
+                print("\n");
+                
                 $connection = null;
 
                 return $insert_results;
             }
             catch(PDOException $e)
             {
-                return "Error: " . $e->getMessage();
+                print_red("Error: " . $e->getMessage(),false);
             }
         }
 
