@@ -31,10 +31,10 @@
             {
                 $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
-                $statement = $connection->prepare('SELECT * FROM tb_cliente');
+                $statement = $connection->prepare($SQL);
                 $statement->execute();
 
-                $result = $statement->fetchAll();
+                $result = $statement->fetchAll(PDO::FETCH_CLASS);
 
                 $connection = null;
 
