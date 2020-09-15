@@ -48,7 +48,7 @@
             }
         }
 
-        public static function insert(PDO $connection,array $values = [])
+        public static function insert(PDO $connection,array $values)
         {
             $insert_results = 0;
 
@@ -74,7 +74,7 @@
                     $marged_data = $processed_data;
                 }
 
-                $SQL_string = self::convert_data_to_sql('tb_cliente',$collumns_name,$processed_data);
+                $SQL_string = self::convert_data_to_insert_sql('tb_cliente',$collumns_name,$processed_data);
 
                 $statement = $connection->prepare($SQL_string);
 
@@ -82,11 +82,12 @@
                 foreach($marged_data as $key=>$value)
                 {
                     $statement->bindValue($key,$value);
+                    $insert_results++;
                 }
 
                 $statement->execute();
 
-                info_success("Dados insetidos com", " SUCESSO!","⇉");
+                info_success(print_yellow($insert_results) . "foram dados insetidos com", " SUCESSO!","⇉");
                 print_blue($SQL_string, false);
                 print("\n");
                 
@@ -95,6 +96,34 @@
                 return $insert_results;
             }
             catch(PDOException $e)
+            {
+                print_red("Error: " . $e->getMessage(),false);
+            }
+        }
+
+        public static function update(PDO $connection,$table_name = 'tb_cliente', $condition = ['nome' => 'Antonio'], $params = [ 'endereco_id'=> 1000])
+        {
+            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+
+            try
+            {
+                $setters = self::creating_setters($params);
+                
+                $condition = self::creating_condition();
+
+                $SQL_string = "UPDATE $table_name SET $setters WHERE $condition";
+
+                $statement = $connection->prepare($SQL_string);
+
+                $statement->execute();
+
+                $connection = null;
+
+                info_success(print_blue($setters) . "foram atualizados com", " SUCESSO!","  ⇉");
+            }
+
+            catch(Exception $e)
             {
                 print_red("Error: " . $e->getMessage(),false);
             }
@@ -140,7 +169,52 @@
             return $is_int;
         }
 
-        private static function convert_data_to_sql($table_name, $collumns,$rows)
+        private static function creating_condition($condition)
+        {
+            $result = [];
+
+            if(is_array($condition) )
+            {
+                foreach($condition as $key => $value)
+                {
+                    array_push($result,$key .'='."'$value'");
+                }
+
+                $result = implode(' AND ',$result);
+            }
+
+            else if(is_string($condition))
+            {
+                $result = $condition;
+            }
+
+            else
+            {
+                throw new InvalidArgumentException('Condition is not a string or a array.');
+            }
+
+            return($result);
+        }
+
+        private static function creating_setters($data)
+        {
+            $result = [];
+
+            foreach($data as $key => $value)
+            {
+                $set;
+                if (is_numeric($value))
+                    $set =$key .'='. "$value";
+                else
+                    $set =$key .'='. "'$value'";
+
+                array_push($result,$set);
+            }
+
+            return( implode(',',$result) );
+        }
+
+        private static function convert_data_to_insert_sql($table_name, $collumns,$rows)
         {
             $sql_values = self::convert_values_to_sql($rows);
 
