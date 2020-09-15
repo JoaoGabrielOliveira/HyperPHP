@@ -25,13 +25,16 @@
             }
         }
 
-        public static function select(PDO $connection,$SQL, $OPTIONS='')
+        public static function select(PDO $connection,$SQL, $collumns = '*', $condition = '')
         {
             try
             {
                 $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
-                $statement = $connection->prepare($SQL);
+
+                $condition = self::creating_condition($condition);
+
+                $statement = $connection->prepare("SELECT $collumns FROM $SQL $condition");
                 $statement->execute();
 
                 $result = $statement->fetchAll(PDO::FETCH_CLASS);
@@ -110,9 +113,9 @@
             {
                 $setters = self::creating_setters($params);
                 
-                $condition = self::creating_condition();
+                $condition = self::creating_condition($condition);
 
-                $SQL_string = "UPDATE $table_name SET $setters WHERE $condition";
+                $SQL_string = "UPDATE $table_name SET $setters $condition";
 
                 $statement = $connection->prepare($SQL_string);
 
@@ -121,6 +124,32 @@
                 $connection = null;
 
                 info_success(print_blue($setters) . "foram atualizados com", " SUCESSO!","  ⇉");
+            }
+
+            catch(Exception $e)
+            {
+                print_red("Error: " . $e->getMessage(),false);
+            }
+        }
+
+        public static function delete(PDO $connection,$table_name = 'tb_cliente', $condition = ['nome' => 'Antonio'])
+        {
+            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+
+            try
+            {
+                $condition = self::creating_condition($condition);
+
+                $SQL_string = "DELETE FROM $table_name $condition";
+
+                $statement = $connection->prepare($SQL_string);
+
+                $statement->execute();
+
+                $connection = null;
+
+                info_success( print_yellow($SQL_string) . "foram atualizados com", " SUCESSO!","  ⇉");
             }
 
             catch(Exception $e)
@@ -181,11 +210,18 @@
                 }
 
                 $result = implode(' AND ',$result);
+
+                $result = 'WHERE ' . $result;
             }
 
-            else if(is_string($condition))
+            else if(is_string($condition) && $condition != '')
             {
-                $result = $condition;
+                $result = 'WHERE ' . $condition;
+            }
+
+            else if($condition == '')
+            {
+                $result = '';
             }
 
             else
