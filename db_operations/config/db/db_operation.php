@@ -25,7 +25,7 @@
             }
         }
 
-        public static function select(PDO $connection,$SQL, $collumns = '*', $condition = '')
+        public static function select(PDO $connection,$table_name, $collumns = '*', $condition = '')
         {
             try
             {
@@ -34,9 +34,8 @@
 
                 $condition = self::creating_condition($condition);
 
-                $statement = $connection->prepare("SELECT $collumns FROM $SQL $condition");
+                $statement = $connection->prepare("SELECT $collumns FROM $table_name $condition");
                 $statement->execute();
-
                 $result = $statement->fetchAll(PDO::FETCH_CLASS);
 
                 $connection = null;
@@ -73,7 +72,7 @@
                 {
                     $collumns_name = implode(',',array_keys($values));
                     $processed_data = self::processing_multiple_data($values);
-                    //The syntax to insert a single data it's already and does not need be marged.
+                    //The syntax to insert a single data it's already and does not need marge data.
                     $marged_data = $processed_data;
                 }
 
