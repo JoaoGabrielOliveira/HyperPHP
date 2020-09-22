@@ -1,5 +1,9 @@
 <?php
 
+namespace Hyper\Database\CRUD;
+
+use PDO;
+
 class select
 {
     public static function execute($connection,$table_name, $collumns = '*', $condition = '')
@@ -28,36 +32,36 @@ class select
     }
 
     private static function creating_condition($condition)
+    {
+        $result = [];
+
+        if(is_array($condition) )
         {
-            $result = [];
-
-            if(is_array($condition) )
+            foreach($condition as $key => $value)
             {
-                foreach($condition as $key => $value)
-                {
-                    array_push($result,$key .'='."'$value'");
-                }
-
-                $result = implode(' AND ',$result);
-
-                $result = 'WHERE ' . $result;
+                array_push($result,$key .'='."'$value'");
             }
 
-            else if(is_string($condition) && $condition != '')
-            {
-                $result = 'WHERE ' . $condition;
-            }
+            $result = implode(' AND ',$result);
 
-            else if($condition == '')
-            {
-                $result = '';
-            }
-
-            else
-            {
-                throw new InvalidArgumentException('Condition is not a string or a array.');
-            }
-
-            return($result);
+            $result = 'WHERE ' . $result;
         }
+
+        else if(is_string($condition) && $condition != '')
+        {
+            $result = 'WHERE ' . $condition;
+        }
+
+        else if($condition == '')
+        {
+            $result = '';
+        }
+
+        else
+        {
+            throw new InvalidArgumentException('Condition is not a string or a array.');
+        }
+
+        return($result);
+    }
 }

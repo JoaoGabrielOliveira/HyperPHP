@@ -2,6 +2,8 @@
 
 namespace Hyper\Database\CRUD;
 
+use PDO;
+
 class delete
 {
     public static function execute(PDO $connection,$table_name = 'tb_cliente', $condition = ['nome' => 'Antonio'])
