@@ -1,5 +1,9 @@
 <?php
 
+namespace Hyper\Database\CRUD;
+
+use PDO;
+
 class update
 {
     public static function execute(PDO $connection,$table_name, $condition, $params)
@@ -27,7 +31,7 @@ class update
         }
     }
 
-    public static function execute_other(PDO $connection,$table_name, $params = [1, ['nome' => '', 'endereco_id' => '300']])
+    public static function execute_other(PDO $connection,$table_name, $params = [ [1, ['nome' => 'GabrielZão', 'endereco_id' => '300']], [2, ['nome' => 'Joãozão', 'endereco_id' => '300']] ])
     {
         
     }

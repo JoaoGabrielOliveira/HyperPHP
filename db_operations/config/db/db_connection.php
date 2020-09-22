@@ -1,5 +1,7 @@
 <?php
 
+namespace Hyper\Database;
+
 class DbConnection
 {
     public static function connect($Configs)

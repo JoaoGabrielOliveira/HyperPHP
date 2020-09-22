@@ -1,5 +1,9 @@
 <?php
 
+namespace Hyper\Database\CRUD;
+
+use PDO;
+
 class insert
 {
     public static function execute(PDO $connection,array $values)
