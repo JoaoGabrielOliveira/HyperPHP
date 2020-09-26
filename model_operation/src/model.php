@@ -2,6 +2,9 @@
 
 namespace Hyper\Model;
 
+use Hyper\Database\CRUD\select;
+use Hyper\Database\DbConnection;
+
 require_once dirname(__FILE__) . '/../main.php';
 
 class model_base
@@ -10,7 +13,8 @@ class model_base
 
     public static function find(int $id)
     {
-
+        $object = select::execute(DbConnection::getInstance(), 'tb_cliente', '*', "id = $id");
+        return(new model_base($object));
     }
 
     public static function find_by($params)

@@ -7,6 +7,8 @@
 
         private $default_path;
 
+        private static $_instance;
+
         private $file;
         private $path;
 
@@ -22,6 +24,16 @@
             unset($file_path[$index]);
 
             $this->path = join("/",$file_path);
+        }
+
+        public static function getInstance()
+        {
+            if(self::$_instance ==  null)
+            {
+                self::$_instance = new Config()
+            }
+
+            return self::$_instance;
         }
 
         //Private
