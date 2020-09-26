@@ -38,6 +38,16 @@ class ConfigurationFile
         }
         
     }
+
+    public static function addConfiguration($key,$value):void
+    {
+        self::$content[$key] = $value;
+    }
+
+    public static function removeConfiguration($key):void
+    {
+        unset($content[$key]);
+    }
 }
 
 ?>
