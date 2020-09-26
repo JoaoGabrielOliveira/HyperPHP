@@ -1,4 +1,6 @@
 <?php
+    namespace Hyper\System;
+
     include_once __DIR__ . '/../colored_console/console.php';
 
     class Config

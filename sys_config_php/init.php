@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+use Hyper\System;
 
     $Configuração = new Config();
 

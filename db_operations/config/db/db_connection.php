@@ -4,6 +4,8 @@ namespace Hyper\Database;
 
 class DbConnection
 {
+    private static $_instance;
+
     public static function connect($Configs)
     {
         $db = $Configs['db'];
@@ -42,5 +44,13 @@ class DbConnection
         }
 
 
+    }
+
+    public static function getInstance()
+    {
+        if (!isset(self::$_instance))
+        {
+            self::$_instance = self::connect();
+        }
     }
 }
