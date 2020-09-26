@@ -6,7 +6,7 @@ use PDO;
 
 class delete
 {
-    public static function execute(PDO $connection,$table_name = 'tb_cliente', $condition = ['nome' => 'Antonio'])
+    public static function execute(PDO $connection,$table_name, $condition)
     {
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
