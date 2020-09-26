@@ -3,6 +3,13 @@
     require_once __DIR__ . '/config/db/db_connection.php';
     require_once __DIR__ . '/config/db/db_operation.php';
 
+    use Hyper\Database\CRUD\delete;
+    use Hyper\Database\CRUD\select;
+    use Hyper\Database\CRUD\update;
+    use Hyper\Database\CRUD\insert;
+
+    use Hyper\Database\DbConnection;
+
     define('ROOTPATH', __DIR__);
 
     $configs = new Config(__DIR__ . '/config/config.json');
@@ -15,7 +22,7 @@
     $conn = DbConnection::connect($configs->Configs);
     
     $value = array(
-        'nome' => 'Antonio',
+        'nome' => 'Heleno',
         'endereco_id' => 100,
         'criado_em' => "DATETIME('now')",
         'atualizado_em' => "DATETIME('now')"
@@ -23,24 +30,16 @@
 
     $values = [ array(
         'nome' => 'Ronaldo',
-        'endereco_id' => 400,
-        'criado_em' => "datetime('now')",
-        'atualizado_em' => "datetime('now')"
+        'endereco_id' => 400
     ),
     array(
-        'nome' => 'Geraldo',
+        'nome' => 'Heleno',
         'endereco_id' => 300,
         'criado_em' => "DATETIME('now')",
         'atualizado_em' => "DATETIME('now')"
     )];
-
-    $i = DbOperation::insert($conn,$value);
-    //$i = DbOperation::insert($conn,$values);
-
-    /*DbOperation::query($conn,"
-    INSERT INTO tb_cliente (nome, endereco_id, criado_em, atualizado_em) VALUES ('Cleber', 101, datetime('now'), datetime('now'));
-    ");
-    */
-
-    //$result = DbOperation::select($conn,"tb_cliente");
-    //DbOperation::update($conn);
+    
+    print_r ( select::execute($conn,'tb_cliente','*') );
+    //print_r ( insert::execute($conn,$value) );
+    //print_r ( update::execute($conn, 'tb_cliente',"nome = 'Geraldo'",[ 'endereco_id'=> 1000]) );
+    //print_r ( delete::execute($conn, 'tb_cliente',"nome = 'Geraldo'") );

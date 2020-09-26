@@ -4,7 +4,7 @@
 
     class DbOperation
     {
-        public static function query(PDO $connection,$SQL, $OPTIONS='')
+        public static function query(PDO $connection,$SQL)
         {
             try
             {
@@ -12,8 +12,6 @@
                 $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
                 $statement = $connection->prepare($SQL);
                 $statement->execute();
-
-                $result = $statement->fetchAll();
 
                 $connection = null;
             }
@@ -24,8 +22,10 @@
                 die();
             }
         }
+    }
 
     include_once dirname(__FILE__) . '/CRUD/select.php';
     include_once dirname(__FILE__) . '/CRUD/insert.php';
     include_once dirname(__FILE__) . '/CRUD/update.php';
+    include_once dirname(__FILE__) . '/CRUD/delete.php';
 ?>
