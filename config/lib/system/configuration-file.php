@@ -5,30 +5,30 @@ use Exception;
 
 class ConfigurationFile
 {
-    private static $path;
-    private static $content;
+    private $path;
+    private $content;
 
-    public static function getConfigPath()
+    public function getConfigPath()
     {
-        return self::$path;
+        return $this->path;
     }
 
-    public static function getConfigContent()
+    public function getConfigContent()
     {
-        return self::$content;
+        return $this->content;
     }
 
     public function __construct($path)
     {
-        self::$path = $path;
-        self::$content = file_get_contents(self::$path, true);
+        $this->path = $path;
+        $this->content = (object)json_decode(file_get_contents($this->path, true));
     }
 
     public function saveConfiguration($content)
     {
         try
         {
-            file_put_contents(self::$path, json_encode($content));
+            file_put_contents($this->path, json_encode($content));
             echo "Configuration has been saved!";
         }
 
@@ -39,14 +39,14 @@ class ConfigurationFile
         
     }
 
-    public static function addConfiguration($key,$value):void
+    public function addConfiguration($key,$value):void
     {
-        self::$content[$key] = $value;
+        $this->content[$key] = $value;
     }
 
-    public static function removeConfiguration($key):void
+    public function removeConfiguration($key):void
     {
-        unset($content[$key]);
+        unset($this->content[$key]);
     }
 }
 

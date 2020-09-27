@@ -16,6 +16,11 @@ class ConfigurationManager
     {
         return self::$Configuration;
     }
+
+    public static function getProjectName()
+    {
+        return(self::$Configuration->getConfigContent()->name);
+    }
 }
 
 ?>

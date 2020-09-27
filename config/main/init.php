@@ -1,13 +1,10 @@
 <?php
-    require_once 'vendor/autoload.php';
+    require_once '../vendor/autoload.php';
 
     use Hyper\System\ConfigurationManager;
 
-    switch ($argv[1])
-    {
-        case 'run':
-            ConfigurationManager::setConfigurationFile('env.json');
-        break;
-    }
+    ConfigurationManager::setConfigurationFile('env.json');
+    
+    echo ConfigurationManager::getProjectName();
 
 ?>
