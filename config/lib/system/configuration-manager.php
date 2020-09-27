@@ -2,6 +2,7 @@
 
 namespace Hyper\System;
 use Hyper\System\ConfigurationFile;
+use InvalidArgumentException;
 
 class ConfigurationManager
 {
@@ -20,6 +21,18 @@ class ConfigurationManager
     public static function getProjectName()
     {
         return(self::$Configuration->getConfigContent()->name);
+    }
+
+    public static function loadEnvironment($path_environment_file)
+    {
+        if(!file_exists($path_environment_file))
+        {
+            throw new InvalidArgumentException;
+        }
+
+        $env = new ConfigurationFile($path_environment_file);
+
+        self::$Configuration->addConfiguration("current_environment",$env->getConfigContent());
     }
 }
 

@@ -2,6 +2,7 @@
 
 namespace Hyper\System;
 use Exception;
+use InvalidArgumentException;
 
 class ConfigurationFile
 {
@@ -20,6 +21,11 @@ class ConfigurationFile
 
     public function __construct($path)
     {
+        $this->setConfiguration($path);
+    }
+
+    public function setConfiguration($path)
+    {
         $this->path = $path;
         $this->content = (object)json_decode(file_get_contents($this->path, true));
     }
@@ -29,6 +35,7 @@ class ConfigurationFile
         try
         {
             file_put_contents($this->path, json_encode($content));
+
             echo "Configuration has been saved!";
         }
 
@@ -41,7 +48,7 @@ class ConfigurationFile
 
     public function addConfiguration($key,$value):void
     {
-        $this->content[$key] = $value;
+        $this->content->$key = $value;
     }
 
     public function removeConfiguration($key):void

@@ -4,7 +4,11 @@
     use Hyper\System\ConfigurationManager;
 
     ConfigurationManager::setConfigurationFile('env.json');
+
+    ConfigurationManager::loadEnvironment('dev.json');
+
+    $content = ConfigurationManager::getConfiguration()->getConfigContent();
     
-    echo ConfigurationManager::getProjectName();
+    print_r($content->current_environment->db);
 
 ?>
