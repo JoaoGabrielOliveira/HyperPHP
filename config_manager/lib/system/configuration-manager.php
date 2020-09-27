@@ -20,7 +20,12 @@ class ConfigurationManager
 
     public static function getProjectName()
     {
-        return(self::$Configuration->getConfigContent()->name);
+        return(self::getConfiguration()->getConfigContent()->name);
+    }
+
+    public static function getCurrentEnvironment()
+    {
+        return(self::$Configuration->getConfigContent()->current_environment);
     }
 
     public static function loadEnvironment($path_environment_file)

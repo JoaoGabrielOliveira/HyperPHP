@@ -7,8 +7,8 @@
 
     ConfigurationManager::loadEnvironment('dev.json');
 
-    $content = ConfigurationManager::getConfiguration()->getConfigContent();
+    $content = ConfigurationManager::getCurrentEnvironment();
     
-    print_r($content->current_environment->db);
+    print_r($content);
 
 ?>
