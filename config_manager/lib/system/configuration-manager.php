@@ -28,6 +28,11 @@ class ConfigurationManager
         return(self::$Configuration->getConfigContent()->current_environment);
     }
 
+    public static function allEnvironment()
+    {
+        return(self::$Configuration->getConfigContent()->env);
+    }
+
     public static function loadEnvironment($path_environment_file)
     {
         if(!file_exists($path_environment_file))
