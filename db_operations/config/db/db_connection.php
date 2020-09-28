@@ -50,13 +50,10 @@ class DbConnection
 
     public static function getInstance()
     {
-<<<<<<< HEAD
         if (!isset(self::$_instance))
         {
             self::$_instance = self::connect();
         }
-=======
-        self::$_instance = self::connect(Config::getInstance())
->>>>>>> 59491ee9bb91cca9c2bb31d39c69d9c53e50619e
+        self::$_instance = self::connect(Config::getInstance());
     }
 }
