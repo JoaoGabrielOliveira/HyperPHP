@@ -2,34 +2,33 @@
 
 namespace Hyper\Database\CRUD;
 
-use Hyper\Database\DbConnection;
 use PDO;
 
-class select
+class delete
 {
-    public static function execute($connection,$table_name, $collumns = '*', $condition = '')
+    public static function execute(PDO $connection,$table_name, $condition)
     {
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+
         try
         {
-            $connection = DbConnection::connect();
-            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
-
             $condition = self::creating_condition($condition);
 
-            $statement = $connection->prepare("SELECT $collumns FROM $table_name $condition");
+            $SQL_string = "DELETE FROM $table_name $condition";
+
+            $statement = $connection->prepare($SQL_string);
+
             $statement->execute();
-            $result = $statement->fetchAll(PDO::FETCH_CLASS);
 
             $connection = null;
 
-            return $result;
+            info_success( print_yellow($SQL_string) . "foram atualizados com", " SUCESSO!","  ⇉");
         }
 
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            return "Error: " . $e->getMessage();
-            die();
+            print_red("Error: " . $e->getMessage(),false);
         }
     }
 
@@ -67,3 +66,5 @@ class select
         return($result);
     }
 }
+
+?>

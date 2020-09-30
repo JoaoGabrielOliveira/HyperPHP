@@ -1,14 +1,13 @@
 <?php
-
 namespace Hyper\Database;
 
-use Config;
+use Hyper\System\ConfigurationManager;
 
 class DbConnection
 {    
-    public static function connect(object $params = [])
+    public static function connect()
     {
-        $db = $params['db'];
+        $db = (array)ConfigurationManager::getConfiguration()->getConfigContent();
 
         if($db['db-driver'] == 'sqlite')
         {
