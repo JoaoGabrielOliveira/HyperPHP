@@ -1,0 +1,19 @@
+{
+    "name": "hypercode/colored_console",
+    "description": "A simple class to change the color of your console text",
+    "type": "library",
+    "authors": [
+        {
+            "name": "JoaoGabrielOliveira",
+            "email": "joaog.conceicao@hotmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+
+    "autoload": {
+        "psr-4": {
+            "Hyper\\" : ["src"]
+        }
+    }
+}

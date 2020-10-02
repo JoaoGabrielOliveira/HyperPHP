@@ -1,10 +1,44 @@
-## Colarizador de Texto de Console
+# Colarizador de Texto de Console
 
 ---------------------
 
 Um arquivo simples para criar textos de console com cores.
 
-### Funções
+## Classes
+
+### Color
+
+Uma classe abstrata com aguarda as cores possiveis de utilizar no console.
+
+#### Lista de cores:
+
+| Colores       |
+|---------------|
+| DEFAULT       |
+| BLACK         |
+| RED           |
+| DEFAULT       |
+| GREEN         |
+| YELLOW        |
+| BLUE          |
+| MAGENTA       |
+| CYAN          |
+| LIGHT_GRAY    |
+| DARK_GRAY     |
+| LIGHT_RED     |
+| LIGHT_GREEN   |
+| LIGHT_YELLOW  |
+| LIGHT_BLUE    |
+| LIGHT_MAGENTA |
+| LIGHT_CYAN    |
+| WHITE         |
+
+
+### Console
+
+É uma classe estática com as funções que exibem textos coloridos.
+
+### Funções Estaticas
 
 **printc** ( _text, color, return=**true**_ )
 
