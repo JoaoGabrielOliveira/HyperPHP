@@ -43,6 +43,7 @@ class ConfigurationManager
         $env = new ConfigurationFile($path_environment_file);
 
         self::$Configuration->addConfiguration("current_environment",$env->getConfigContent());
+        self::$Configuration->saveConfiguration();
     }
 }
 

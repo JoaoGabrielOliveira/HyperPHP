@@ -16,13 +16,13 @@ class ComposerStaticInit7b04a3912bdba4799feecc704fcd7e6b
     public static $prefixDirsPsr4 = array (
         'Hyper\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/lib',
+            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
     public static $classMap = array (
-        'Hyper\\System\\ConfigurationFile' => __DIR__ . '/../..' . '/lib/system/configuration-file.php',
-        'Hyper\\System\\ConfigurationManager' => __DIR__ . '/../..' . '/lib/system/configuration-manager.php',
+        'Hyper\\System\\ConfigurationFile' => __DIR__ . '/../..' . '/src/system/configuration-file.php',
+        'Hyper\\System\\ConfigurationManager' => __DIR__ . '/../..' . '/src/system/configuration-manager.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Hyper\\' => array($baseDir . '/lib'),
+    'Hyper\\' => array($baseDir . '/src'),
 );

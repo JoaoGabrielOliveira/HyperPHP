@@ -6,6 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Hyper\\System\\ConfigurationFile' => $baseDir . '/lib/system/configuration-file.php',
-    'Hyper\\System\\ConfigurationManager' => $baseDir . '/lib/system/configuration-manager.php',
+    'Hyper\\System\\ConfigurationFile' => $baseDir . '/src/system/configuration-file.php',
+    'Hyper\\System\\ConfigurationManager' => $baseDir . '/src/system/configuration-manager.php',
 );

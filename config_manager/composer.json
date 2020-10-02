@@ -1,7 +1,19 @@
 {
+    "name": "hypercode/config_manager",
+    "description": "Um simples gerenciador de configurações, feitos para ler yaml e json",
+    "type": "libray",
+    "authors": [
+        {
+            "name": "JoaoGabrielOliveira",
+            "email": "joaog.conceicao@hotmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+
     "autoload": {
         "psr-4": {
-           "Hyper\\" : ["lib"]
+           "Hyper\\" : ["src"]
         }
     }
 }
