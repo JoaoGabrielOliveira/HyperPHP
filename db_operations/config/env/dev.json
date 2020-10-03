@@ -1,9 +1,0 @@
-{
-    "env-name":"development",
-    "db":{
-        "cript":false,
-        "db-driver":"sqlite",
-        "db-name":"/db/database.db"
-}
-
-}
