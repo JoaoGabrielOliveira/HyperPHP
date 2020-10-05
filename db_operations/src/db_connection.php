@@ -2,47 +2,50 @@
 
 namespace Hyper\Database;
 
-use Config;
-
 class DbConnection
 {    
-    public static function connect(object $params = [])
+    public static function connect($params)
     {
-        $db = $params['db'];
-
-        if($db['db-driver'] == 'sqlite')
+        if(isset($params->db))
         {
-            $database_server = $db['db-driver']
-            .':' . ROOTPATH . '/' . $db['db-name'];
-
-            try 
-            {
-                $con = new \PDO($database_server);
-                return $con;
-            }
-            catch(PDOException $e)
-            {
-                echo 'Conexão falhou: ' . $e->getMessage();
-            }
-        }
-        else
-        {
-            $database_server = $db['db-driver']
-            .':dbname=' . $db['db-name']
-            .';host=' . $db['db-host']
-            .';port=' . $db['port'] . ';charset=utf8';
-
-            try 
-            {
-                $con = new \PDO($database_server,$db['db-user'], $db['db-pass']);
-                return $con;
-            }
-            catch(PDOException $e)
-            {
-                echo 'Conexão falhou: ' . $e->getMessage();
-            }
+            $params = $params->db;
         }
 
+        $database_server = '';
+
+        switch($params->driver)
+        {
+            case 'sqlite':
+                $database_server = 'sqlite:' . $params->path;
+            break;
+
+            case 'psql': $database_server = 'psql'
+            .':dbname=' . $params->name
+            .';host=' . $params->host
+            .';port=' . $params->port . ';
+            user:' . $params->user .';
+            password:' . $params->password . 'charset=utf8';
+            break;
+
+            default:
+                $database_server = $params->driver . ':dbname=' . $params->name . ';
+                host=' . $params->host . ';
+                port=' . $params->port . ';
+                user:' . $params->user .';
+                password:' . $params->password . 'charset=utf8';
+            break;
+        }
+
+        try 
+        {
+            return new \PDO($database_server);
+        }
+        catch(PDOException $e)
+        {
+            echo 'Conexão falhou: ' . $e->getMessage();
+        }
 
     }
 }
+
+?>

@@ -1,0 +1,56 @@
+<?php
+
+namespace Hyper\Database;
+
+class DbConnection
+{    
+    public static function connect($params)
+    {
+        
+    }
+}
+
+
+interface Connection
+{
+    public function connect($params);
+}
+
+class SQLiteConnection implements Connection
+{
+    public function connect($params)
+    {
+        $database_server = "sqlite" . ":" . $params['path'];
+
+        try 
+        {
+            $connection = new \PDO($database_server);
+            return $connection;
+        }
+        catch(PDOException $e)
+        {
+            echo 'Conexão falhou: ' . $e->getMessage();
+        }
+    }
+}
+
+class PostgreSQLConnection implements Connection
+{
+    public function connect($params)
+    {
+        $database_server = "pgsql" .
+        ':dbname=' . $params['name'] .
+        ';host=' . $params['host'] .
+        ';port=' . $params['port'] . ';charset=utf8';
+
+        try 
+        {
+            $connection = new \PDO($database_server,$params['user'], $params['password']);
+            return $connection;
+        }
+        catch(PDOException $e)
+        {
+            echo 'Conexão falhou: ' . $e->getMessage();
+        }
+    }
+}
