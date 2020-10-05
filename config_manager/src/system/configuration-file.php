@@ -1,8 +1,10 @@
 <?php
 
 namespace Hyper\System;
+
 use Exception;
 use InvalidArgumentException;
+use Hyper\Console;
 
 class ConfigurationFile
 {
@@ -17,10 +19,7 @@ class ConfigurationFile
     public function setConfiguration(string $path)
     {
         $this->path = $path;
-
-        $this->validatePath($path);
-
-        $this->content = (object)json_decode(file_get_contents($this->path));
+        $this->content = $this->validateFile($path);
     }
 
     public function getConfigPath()
@@ -40,7 +39,7 @@ class ConfigurationFile
         {
             file_put_contents($this->path, json_encode($content));
 
-            echo "Configuration has been saved!";
+            Console::info_success(" Configuration has been saved ", "");
         }
 
         catch(Exception $e)
@@ -64,6 +63,35 @@ class ConfigurationFile
     {
         if(!file_exists($path))
             throw new InvalidArgumentException("The argument used is invalid or path is not correct.");
+    }
+
+    private function validateFile(string $path)
+    {
+        $this->validatePath($path);
+
+        $content = file_get_contents($path);
+        $extension = pathinfo($path)['extension'];
+
+        switch($extension)
+        {
+            case 'json':
+                return json_decode($content);
+            break;
+
+            case 'yml':
+                return yaml_parse($content);
+            break;
+
+            case 'ini':
+                return parse_ini_string($content);
+            break;
+
+            default:
+                throw new Exception('file type is not support.');
+            break;
+        }
+
+        
     }
 }
 
