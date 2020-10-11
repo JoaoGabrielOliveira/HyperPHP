@@ -9,22 +9,27 @@ class ComposerStaticInit20ba16e88658821c11fbc9d311ed038a
     public static $prefixLengthsPsr4 = array (
         'H' => 
         array (
-            'Hyper\\' => 6,
+            'Hyper\\Database\\CRUD\\' => 20,
+            'Hyper\\Database\\' => 15,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Hyper\\' => 
+        'Hyper\\Database\\CRUD\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/crud',
+        ),
+        'Hyper\\Database\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
     public static $classMap = array (
-        'Hyper\\Database\\CRUD\\delete' => __DIR__ . '/../..' . '/src/CRUD/delete.php',
-        'Hyper\\Database\\CRUD\\insert' => __DIR__ . '/../..' . '/src/CRUD/insert.php',
-        'Hyper\\Database\\CRUD\\select' => __DIR__ . '/../..' . '/src/CRUD/select.php',
-        'Hyper\\Database\\CRUD\\update' => __DIR__ . '/../..' . '/src/CRUD/update.php',
+        'Hyper\\Database\\CRUD\\delete' => __DIR__ . '/../..' . '/src/crud/delete.php',
+        'Hyper\\Database\\CRUD\\insert' => __DIR__ . '/../..' . '/src/crud/insert.php',
+        'Hyper\\Database\\CRUD\\select' => __DIR__ . '/../..' . '/src/crud/select.php',
+        'Hyper\\Database\\CRUD\\update' => __DIR__ . '/../..' . '/src/crud/update.php',
         'Hyper\\Database\\DbConnection' => __DIR__ . '/../..' . '/src/db_connection.php',
     );
 

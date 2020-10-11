@@ -12,7 +12,8 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Hyper\\":["src"]
+            "Hyper\\Database\\":["src"],
+            "Hyper\\Database\\CRUD\\":["src/crud"]
         }
     }
 }

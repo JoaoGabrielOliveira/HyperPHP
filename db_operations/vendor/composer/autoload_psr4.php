@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Hyper\\' => array($baseDir . '/src'),
+    'Hyper\\Database\\CRUD\\' => array($baseDir . '/src/crud'),
+    'Hyper\\Database\\' => array($baseDir . '/src'),
 );

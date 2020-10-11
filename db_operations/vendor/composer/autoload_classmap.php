@@ -6,9 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Hyper\\Database\\CRUD\\delete' => $baseDir . '/src/CRUD/delete.php',
-    'Hyper\\Database\\CRUD\\insert' => $baseDir . '/src/CRUD/insert.php',
-    'Hyper\\Database\\CRUD\\select' => $baseDir . '/src/CRUD/select.php',
-    'Hyper\\Database\\CRUD\\update' => $baseDir . '/src/CRUD/update.php',
+    'Hyper\\Database\\CRUD\\delete' => $baseDir . '/src/crud/delete.php',
+    'Hyper\\Database\\CRUD\\insert' => $baseDir . '/src/crud/insert.php',
+    'Hyper\\Database\\CRUD\\select' => $baseDir . '/src/crud/select.php',
+    'Hyper\\Database\\CRUD\\update' => $baseDir . '/src/crud/update.php',
     'Hyper\\Database\\DbConnection' => $baseDir . '/src/db_connection.php',
 );
