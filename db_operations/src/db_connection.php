@@ -2,16 +2,28 @@
 
 namespace Hyper\Database;
 
+use Exception;
+use PDO;
+
 class DbConnection
-{    
-    public static function connect($params)
+{   
+    public $connection_params;
+    private static $_instance;
+
+    public function __construct($params)
     {
         if(isset($params->db))
         {
             $params = $params->db;
         }
 
+        $this->connection_params = $params;
+    }
+    
+    public function connect()
+    {
         $database_server = '';
+        $params = $this->connection_params;
 
         switch($params->driver)
         {
@@ -45,6 +57,30 @@ class DbConnection
             echo 'Conexão falhou: ' . $e->getMessage();
         }
 
+    }
+
+    public static function getInstance(object $params = null)
+    {
+        if(is_null(self::$_instance))
+        {
+            if(is_null($params))
+            {
+                throw new Exception("Database is not instanced. Create the instance using this method with params of the database.");
+            }
+
+            self::$_instance = new DbConnection($params);
+        }
+        return self::$_instance;
+    }
+
+    public static function prepare_statement(string $query)
+    {
+        $connection = self::$_instance->connect();
+
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+
+        return $connection->prepare($query);
     }
 }
 
