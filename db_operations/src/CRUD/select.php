@@ -2,6 +2,7 @@
 
 namespace Hyper\Database\CRUD;
 
+use Exception;
 use Hyper\Database\DbConnection;
 use PDO;
 
@@ -11,14 +12,14 @@ class select
     {
         try
         {
-            $connection = DbConnection::connect();
-            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
-
             $condition = self::creating_condition($condition);
 
-            $statement = $connection->prepare("SELECT $collumns FROM $table_name $condition");
+            $SQL_string = "SELECT $collumns FROM $table_name $condition";
+
+            $statement = DbConnection::prepare_statement($SQL_string);
+
             $statement->execute();
+
             $result = $statement->fetchAll(PDO::FETCH_CLASS);
 
             $connection = null;
@@ -26,10 +27,9 @@ class select
             return $result;
         }
 
-        catch(PDOException $e)
+        catch(Exception $e)
         {
             return "Error: " . $e->getMessage();
-            die();
         }
     }
 

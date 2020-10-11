@@ -2,6 +2,7 @@
 
 namespace Hyper\Database\CRUD;
 
+use Hyper\Database\DbConnection;
 use PDO;
 
 class insert
@@ -15,8 +16,6 @@ class insert
         $marged_data;
         try
         {
-            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
             if (self::is_mutiple_values($values))
             {
                 $collumns_name = implode(',',array_keys($values[0]));
@@ -34,7 +33,7 @@ class insert
 
             $SQL_string = self::convert_data_to_insert_sql('tb_cliente',$collumns_name,$processed_data);
 
-            $statement = $connection->prepare($SQL_string);
+            $statement = DbConnection::prepare_statement($SQL_string);
 
             
             foreach($marged_data as $key=>$value)
@@ -53,7 +52,7 @@ class insert
 
             return $insert_results;
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
             print_red("Error: " . $e->getMessage(),false);
         }

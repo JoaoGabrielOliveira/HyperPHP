@@ -2,22 +2,20 @@
 
 namespace Hyper\Database\CRUD;
 
+use Hyper\Database\DbConnection;
 use PDO;
 
 class delete
 {
-    public static function execute(PDO $connection,$table_name, $condition)
+    public static function execute($table_name, $condition)
     {
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
-
         try
         {
             $condition = self::creating_condition($condition);
 
             $SQL_string = "DELETE FROM $table_name $condition";
 
-            $statement = $connection->prepare($SQL_string);
+            $statement = DbConnection::prepare_statement($SQL_string);
 
             $statement->execute();
 

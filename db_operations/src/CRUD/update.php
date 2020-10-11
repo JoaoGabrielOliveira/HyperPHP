@@ -2,11 +2,12 @@
 
 namespace Hyper\Database\CRUD;
 
+use Hyper\Database\DbConnection;
 use PDO;
 
 class update
 {
-    public static function execute(PDO $connection,$table_name, $condition, $params)
+    public static function execute($table_name, $condition, $params)
     {
         try
         {
@@ -16,11 +17,9 @@ class update
 
             $SQL_string = "UPDATE $table_name SET $setters $condition";
 
-            $statement = $connection->prepare($SQL_string);
+            $statement = DbConnection::prepare_statement($SQL_string);
 
             $statement->execute();
-
-            $connection = null;
 
             info_success(print_blue($setters) . "foram atualizados com", " SUCESSO!","  ⇉");
         }
