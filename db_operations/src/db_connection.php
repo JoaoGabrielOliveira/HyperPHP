@@ -59,7 +59,12 @@ class DbConnection
 
     }
 
-    public static function getInstance(object $params = null)
+    public static function getInstance()
+    {
+        return self::$_instance;
+    }
+
+    public static function setInstance(object $params)
     {
         if(is_null(self::$_instance))
         {
@@ -70,7 +75,11 @@ class DbConnection
 
             self::$_instance = new DbConnection($params);
         }
-        return self::$_instance;
+
+        else
+        {
+            echo "This it's already instanced";
+        }
     }
 
     public static function prepare_statement(string $query)
