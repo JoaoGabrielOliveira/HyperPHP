@@ -1,0 +1,8 @@
+# Remove additional repository
+/vendor/*
+
+# Remove no import files
+/composer.lock
+
+!/vendor/composer/*
+!/vendor/composer/autoload.php

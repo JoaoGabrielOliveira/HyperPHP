@@ -1,0 +1,39 @@
+[
+    {
+        "name": "hypercode/colored_console",
+        "version": "dev-main",
+        "version_normalized": "dev-main",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/JoaoGabrielOliveira/colored_console.git",
+            "reference": "e1c95477b503f64dd4874cea23b9084afce72e5b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/JoaoGabrielOliveira/colored_console/zipball/e1c95477b503f64dd4874cea23b9084afce72e5b",
+            "reference": "e1c95477b503f64dd4874cea23b9084afce72e5b",
+            "shasum": ""
+        },
+        "time": "2020-10-15T00:05:23+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Hyper\\": [
+                    "src"
+                ]
+            }
+        },
+        "authors": [
+            {
+                "name": "JoaoGabrielOliveira",
+                "email": "joaog.conceicao@hotmail.com"
+            }
+        ],
+        "description": "A simple class to change the color of your console text",
+        "support": {
+            "source": "https://github.com/JoaoGabrielOliveira/colored_console/tree/main",
+            "issues": "https://github.com/JoaoGabrielOliveira/colored_console/issues"
+        }
+    }
+]

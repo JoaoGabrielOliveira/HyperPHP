@@ -9,11 +9,21 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {},
     "autoload": {
         "psr-4": {
             "Hyper\\Database\\":["src"],
             "Hyper\\Database\\CRUD\\":["src/crud"]
         }
+    },
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/JoaoGabrielOliveira/colored_console"
+        }
+    ],
+
+    "require": {
+        "hypercode/colored_console": "dev-main"
     }
 }

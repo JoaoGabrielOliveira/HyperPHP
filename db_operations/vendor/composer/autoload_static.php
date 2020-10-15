@@ -11,6 +11,7 @@ class ComposerStaticInit20ba16e88658821c11fbc9d311ed038a
         array (
             'Hyper\\Database\\CRUD\\' => 20,
             'Hyper\\Database\\' => 15,
+            'Hyper\\' => 6,
         ),
     );
 
@@ -23,13 +24,19 @@ class ComposerStaticInit20ba16e88658821c11fbc9d311ed038a
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
+        'Hyper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hypercode/colored_console/src',
+        ),
     );
 
     public static $classMap = array (
-        'Hyper\\Database\\CRUD\\delete' => __DIR__ . '/../..' . '/src/crud/delete.php',
-        'Hyper\\Database\\CRUD\\insert' => __DIR__ . '/../..' . '/src/crud/insert.php',
-        'Hyper\\Database\\CRUD\\select' => __DIR__ . '/../..' . '/src/crud/select.php',
-        'Hyper\\Database\\CRUD\\update' => __DIR__ . '/../..' . '/src/crud/update.php',
+        'Hyper\\Console' => __DIR__ . '/..' . '/hypercode/colored_console/src/console.php',
+        'Hyper\\Console\\Color' => __DIR__ . '/..' . '/hypercode/colored_console/src/color.php',
+        'Hyper\\Database\\CRUD\\delete' => __DIR__ . '/../..' . '/src/CRUD/delete.php',
+        'Hyper\\Database\\CRUD\\insert' => __DIR__ . '/../..' . '/src/CRUD/insert.php',
+        'Hyper\\Database\\CRUD\\select' => __DIR__ . '/../..' . '/src/CRUD/select.php',
+        'Hyper\\Database\\CRUD\\update' => __DIR__ . '/../..' . '/src/CRUD/update.php',
         'Hyper\\Database\\DbConnection' => __DIR__ . '/../..' . '/src/db_connection.php',
     );
 

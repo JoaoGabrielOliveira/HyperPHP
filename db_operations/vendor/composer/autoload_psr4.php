@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'Hyper\\Database\\CRUD\\' => array($baseDir . '/src/crud'),
     'Hyper\\Database\\' => array($baseDir . '/src'),
+    'Hyper\\' => array($vendorDir . '/hypercode/colored_console/src'),
 );
