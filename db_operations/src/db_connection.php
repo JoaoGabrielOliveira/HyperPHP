@@ -12,9 +12,9 @@ class DbConnection
 
     public function __construct($params)
     {
-        if(isset($params->db))
+        if(isset($params['db']))
         {
-            $params = $params->db;
+            $params = $params['db'];
         }
 
         $this->connection_params = $params;
@@ -24,30 +24,36 @@ class DbConnection
     {
         $database_server = '';
         $params = $this->connection_params;
-
-        switch($params->driver)
+        
+        switch($params['driver'])
         {
             case 'sqlite':
-                $database_server = 'sqlite:' . $params->path;
+                $database_server = 'sqlite:' . $params['path'];
             break;
 
-            case 'psql': $database_server = 'psql'
-            .':dbname=' . $params->name
-            .';host=' . $params->host
-            .';port=' . $params->port . ';
-            user:' . $params->user .';
-            password:' . $params->password . 'charset=utf8';
+            case 'psql':
+            $database_server = 'psql' . ':
+                dbname=' . $params['name'] . ';
+                host=' . $params['host'] . ';
+                port=' . $params['port'] . ';
+                user:' . $params['user'] .';
+                password:' . $params['password'] . 'charset=utf8';
             break;
 
             default:
-                $database_server = $params->driver . ':dbname=' . $params->name . ';
-                host=' . $params->host . ';
-                port=' . $params->port . ';
-                user:' . $params->user .';
-                password:' . $params->password . 'charset=utf8';
+                $new_params = [$params['driver'] . ':'];
+                unset($params['driver']);
+
+                //Get all params and set all with your key name and value
+                foreach($params as $param => $value)
+                {
+                    $new_params[] = "$param=$value;";
+                }
+
+                $database_server = implode('',$new_params);
             break;
         }
-
+        
         try 
         {
             return new \PDO($database_server);
@@ -56,17 +62,16 @@ class DbConnection
         {
             echo 'Conexão falhou: ' . $e->getMessage();
         }
-
     }
 
-    public static function getInstance()
+    public static function get_instance()
     {
         return self::$_instance;
     }
 
-    public static function setInstance(object $params)
+    public static function set_instance($params)
     {
-        if(is_null(self::$_instance))
+        if(self::is_intance_null())
         {
             if(is_null($params))
             {
@@ -90,6 +95,13 @@ class DbConnection
         $connection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
 
         return $connection->prepare($query);
+    }
+
+    private static function is_intance_null():bool
+    {
+        if(is_null(self::$_instance))
+            return true;
+        return false; 
     }
 }
 
