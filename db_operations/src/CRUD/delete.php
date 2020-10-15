@@ -3,6 +3,7 @@
 namespace Hyper\Database\CRUD;
 
 use Hyper\Database\DbConnection;
+use Hyper\Console;
 use PDO;
 
 class delete

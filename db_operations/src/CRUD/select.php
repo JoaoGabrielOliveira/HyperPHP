@@ -8,7 +8,7 @@ use PDO;
 
 class select
 {
-    public static function execute($connection,$table_name, $collumns = '*', $condition = '')
+    public static function execute($table_name, $collumns = '*', $condition = '')
     {
         try
         {
@@ -21,8 +21,6 @@ class select
             $statement->execute();
 
             $result = $statement->fetchAll(PDO::FETCH_CLASS);
-
-            $connection = null;
 
             return $result;
         }

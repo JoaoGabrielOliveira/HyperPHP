@@ -7,7 +7,7 @@ use PDO;
 
 class insert
 {
-    public static function execute(PDO $connection,array $values)
+    public static function execute(array $values)
     {
         $insert_results = 0;
 
